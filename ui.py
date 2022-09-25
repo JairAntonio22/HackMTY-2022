@@ -6,6 +6,7 @@ model_diabetes=load("model_diabetes.joblib")
 
 diabetes, cancer, derrame=st.tabs(['Diabetes','Cancer de Mama','Derrame cerebral'])
 
+
 with diabetes:
     st.title("Herramienta de diagnostico para diabetes")
 
@@ -19,8 +20,8 @@ with diabetes:
     presion_arterial=st.number_input('presion arterial',0)
     grosor=st.number_input('grosor de la piel',0)
     insulina=st.number_input('Nivel de insulina',0)
-    altura=st.number_input('Altura:',0)
-    peso=st.number_input('Peso',0)
+    altura=st.number_input('Altura(m):',0)
+    peso=st.number_input('Peso(kg)',0)
 
     if altura!=0:
         bmi=peso/(altura**2)
@@ -41,4 +42,25 @@ with cancer:
     'test'
 
 with derrame:
-    'test'
+    st.title("Herramienta para diagnostico de riesgo de derrame cerebral")
+
+    genero=st.radio('Genero',('Hombre ','Mujer '))
+    edad=st.number_input('Edad',1)
+    hipertension=st.radio('Presenta hipertension:',('Si','No'))
+    antecedentes=st.radio('Presenta antecedentes cardiacos:',('Si','No'))
+    casado=st.radio('Esta o alguna vez ha estado casad@:',('Si','No'))
+    trabajo=st.radio('Tipo de trabajo:',('Gobierno','Privado','Autoempleado','Am@ de casa','Nunca he trabajado'))
+    residencia=st.radio('Lugar de residencia:',('Rural','Urbano'))
+
+    altura=st.number_input('Altura(m): ',0)
+    peso=st.number_input('Peso(kg): ',0)
+
+    if altura!=0:
+        bmi=peso/(altura**2)
+    else:
+        bmi=0
+
+    load=st.button("Calcular ")
+
+    if load:
+        'test'
