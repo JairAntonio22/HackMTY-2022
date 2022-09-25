@@ -13,7 +13,7 @@ from joblib import dump
 data = pd.read_csv('diabetes-dataset.csv')
 
 y = data['Outcome']
-x = data.drop(columns=['Outcome'])
+x = data.drop(columns=['Outcome', 'DiabetesPedigreeFunction'])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.10)
 
