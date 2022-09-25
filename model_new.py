@@ -21,25 +21,25 @@ from joblib import dump
 
 #Label Encoding function
 def label_encoding(df):
-    
+
     cols = df.select_dtypes(include = 'object').columns
 
     for col in cols:
         le = LabelEncoder()
         df[col + 'Encode'] = le.fit_transform(df[col])
-    
+
     df.drop(columns = cols, inplace = True)
 
-#Make a fancy confusion matrix  
+#Make a fancy confusion matrix
 def confusion_matrix_graph(ytrue,ypred,title):
-    
+
     matrix = confusion_matrix(ytrue,ypred)
-    
+
     labels = ["{}\n{}\n{}".format(x,y,z) for x,y,z in zip(
         ('True Negative','False Positive','False Negative','True Positive'),
         [str(np.round(i,2)) for i in matrix.flatten()],
         [str(np.round(i,2)) for i in matrix.flatten()/np.sum(matrix)])]
-    
+
     plt.figure(figsize = (16,9))
     plt.title(title)
     sns.heatmap(matrix, annot = np.asarray(labels).reshape(2,2), cmap = 'viridis', fmt = '')
@@ -92,6 +92,7 @@ data_diabetes.drop(columns = 'DiabetesPedigreeFunction', inplace = True)
 model_run(data_diabetes,'Outcome','model_diabetes','Diabetes Confusion Matrix')
 
 #Brain Stroke
+#gender(1=Hombre, 0=Mujer), age(int), hipertension(0=No,1=Si), heart_disease(igual), married(yes=1, no=0), work_type(private=2, self_employed=3, government=0, children=4, Never_worked=1), residencia(urbano=1, rural=0), glucosa, bmi, fumador(antes=1,nunca=2,fuma=3)
 data_stroke = pd.read_csv('healthcare-dataset-stroke-data.csv', index_col = 0)
 data_stroke.dropna(inplace = True)
 data_stroke.reset_index(drop = True, inplace = True)
@@ -99,6 +100,7 @@ label_encoding(data_stroke)
 model_run(data_stroke,'stroke','model_stroke','Brain Stroke Confusion Matrix')
 
 #Lung Cancer
+#gender(Hombre=1,mujer=0),edad,fumar(yes=2,no=1),dedos(yes=2,no=1),ansiedad,presion social, enfermedad,fatiga,alergia,silbicio,alcohol,tos,perdida de aliento,tragar,dolor
 data_lung = pd.read_csv('survey lung cancer.csv')
 label_encoding(data_lung)
 model_run(data_lung,'LUNG_CANCEREncode','model_lung','Lung Cancer Confusion Matrix')
