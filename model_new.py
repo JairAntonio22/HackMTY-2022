@@ -94,6 +94,7 @@ model_run(data_diabetes,'Outcome','model_diabetes','Diabetes Confusion Matrix')
 #Brain Stroke
 data_stroke = pd.read_csv('healthcare-dataset-stroke-data.csv', index_col = 0)
 data_stroke.dropna(inplace = True)
+data_stroke.reset_index(drop = True, inplace = True)
 label_encoding(data_stroke)
 model_run(data_stroke,'stroke','model_stroke','Brain Stroke Confusion Matrix')
 
