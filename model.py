@@ -8,9 +8,11 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
+
 from joblib import dump
 
 data = pd.read_csv('diabetes-dataset.csv')
+data.drop(columns = 'DiabetesPedigreeFunction', inplace = True)
 
 y = data['Outcome']
 x = data.drop(columns=['Outcome', 'DiabetesPedigreeFunction'])
@@ -24,7 +26,8 @@ models = [
     LogisticRegression(solver='liblinear')
 ]
 
-model_arr = []
+model_max = 0
+best_model = 0
 
 for model in models:
     model.fit(x_train, y_train)
@@ -33,7 +36,9 @@ for model in models:
     area = roc_auc_score(y_test, y_pred)
     print('score', score)
     print('area', area)
-    model_arr.append((area,model))
+    if area > model_max:
+        model_max = area
+        best_model = model
 
-dump(max(model_arr)[1],"model_diabetes.joblib")
+dump(best_model,"model_diabetes.joblib")
 
